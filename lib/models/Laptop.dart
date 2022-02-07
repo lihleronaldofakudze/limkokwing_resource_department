@@ -1,9 +1,9 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
-final String tableProjector = 'projectors';
+final String tableLaptop = 'laptops';
 
-class ProjectorFields {
+class LaptopFields {
   static final List<String> values = [
     id,
     name,
@@ -21,7 +21,7 @@ class ProjectorFields {
   static final String dateTime = 'dateTime';
 }
 
-class Projector {
+class Laptop {
   final int id;
   final String name;
   final String serialNumber;
@@ -29,7 +29,7 @@ class Projector {
   final String department;
   final DateTime dateTime;
 
-  Projector(
+  Laptop(
       {required this.id,
       required this.name,
       required this.serialNumber,
@@ -37,14 +37,14 @@ class Projector {
       required this.department,
       required this.dateTime});
 
-  Projector copy(
+  Laptop copy(
           {int? id,
           String? name,
           String? serialNumber,
           String? status,
           String? department,
           DateTime? dateTime}) =>
-      Projector(
+      Laptop(
           id: id ?? this.id,
           name: name ?? this.name,
           serialNumber: serialNumber ?? this.serialNumber,
@@ -52,26 +52,26 @@ class Projector {
           department: department ?? this.department,
           dateTime: dateTime ?? this.dateTime);
 
-  static Projector fromJson(Map<String, Object?> json) => Projector(
-      id: json[ProjectorFields.id] as int,
-      name: json[ProjectorFields.name] as String,
-      serialNumber: json[ProjectorFields.serialNumber] as String,
-      status: json[ProjectorFields.status] as String,
-      department: json[ProjectorFields.department] as String,
-      dateTime: json[ProjectorFields.dateTime] as DateTime);
+  static Laptop fromJson(Map<String, Object?> json) => Laptop(
+      id: json[LaptopFields.id] as int,
+      name: json[LaptopFields.name] as String,
+      serialNumber: json[LaptopFields.serialNumber] as String,
+      status: json[LaptopFields.status] as String,
+      department: json[LaptopFields.department] as String,
+      dateTime: json[LaptopFields.dateTime] as DateTime);
 
   Map<String, Object?> toJson() => {
-        ProjectorFields.id: id,
-        ProjectorFields.name: name,
-        ProjectorFields.serialNumber: serialNumber,
-        ProjectorFields.status: status,
-        ProjectorFields.department: department,
-        ProjectorFields.dateTime: dateTime
+        LaptopFields.id: id,
+        LaptopFields.name: name,
+        LaptopFields.serialNumber: serialNumber,
+        LaptopFields.status: status,
+        LaptopFields.department: department,
+        LaptopFields.dateTime: dateTime
       };
 }
 
-class ProjectorDataSource extends DataGridSource {
-  ProjectorDataSource(List<Projector> projectors) {
+class LaptopDataSource extends DataGridSource {
+  LaptopDataSource(List<Laptop> projectors) {
     dataGridRows = projectors
         .map((dataGridRow) => DataGridRow(cells: [
               DataGridCell<int>(columnName: 'id', value: dataGridRow.id),
@@ -97,8 +97,10 @@ class ProjectorDataSource extends DataGridSource {
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
         cells: row.getCells().map<Widget>((dataGridCell) {
-      return Container(
-        child: Text(dataGridCell.value.toString()),
+      return Expanded(
+        child: Container(
+          child: Text(dataGridCell.value.toString()),
+        ),
       );
     }).toList());
   }
