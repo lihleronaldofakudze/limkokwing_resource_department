@@ -1,0 +1,35 @@
+name: limkokwing_resource_department
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  fluent_ui: ^3.8.0
+  sqflite: ^2.0.2
+  sqflite_common_ffi: ^2.1.0+2
+  syncfusion_flutter_xlsio: ^19.4.48-beta
+  printing: ^5.7.2
+  syncfusion_flutter_pdf: ^19.4.48-beta
+  animated_splash_screen: ^1.1.0
+  google_fonts: ^2.3.1
+  syncfusion_flutter_datagrid: ^19.4.48+1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+     - assets/images/
