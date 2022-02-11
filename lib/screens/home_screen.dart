@@ -1,10 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:limkokwing_resource_department/screens/admin_screen.dart';
-import 'package:limkokwing_resource_department/screens/laptop_screen.dart';
-import 'package:limkokwing_resource_department/screens/projector_screen.dart';
-import 'package:limkokwing_resource_department/screens/stationery_screen.dart';
-import 'package:limkokwing_resource_department/screens/venue_screen.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:limkokwing_resource_department/widgets/home_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,55 +10,90 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return NavigationView(
-      pane: NavigationPane(
-        selected: _currentIndex,
-        onChanged: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        header: Padding(
-          padding: EdgeInsets.all(10),
-          child: IconButton(
-              icon: Icon(FluentIcons.collapse_menu), onPressed: () {}),
+    return ScaffoldPage(
+      header: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 15.0,
         ),
-        size: NavigationPaneSize(openWidth: 200),
-        items: [
-          PaneItem(
-              icon: Icon(FluentIcons.book_answers), title: Text('Stationery')),
-          PaneItem(icon: Icon(FluentIcons.home_verify), title: Text('Venue')),
-          PaneItem(
-              icon: Icon(FluentIcons.security_camera),
-              title: Text('Projectors')),
-          PaneItem(
-              icon: Icon(FluentIcons.laptop_selected), title: Text('Laptops')),
-        ],
-        footerItems: [
-          PaneItem(icon: Icon(FluentIcons.admin), title: Text('Admin Settings'))
-        ],
-        displayMode: PaneDisplayMode.open,
-      ),
-      appBar: NavigationAppBar(
-          automaticallyImplyLeading: false,
-          title: Center(
-            child: Text(
-              'Dashboard',
-              style: GoogleFonts.ubuntu(color: Colors.black),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 200,
+              child: Button(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
+                child: Text('Logout'),
+              ),
             ),
-          )),
-      content: NavigationBody(
-        index: _currentIndex,
-        children: [
-          StationeryScreen(),
-          VenueScreen(),
-          ProjectorScreen(),
-          LaptopScreen(),
-          AdminScreen()
-        ],
+            Text(
+              'Limkokwing Resources Administrator Dashboard',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                  fontFamily: 'Ubuntu',
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+                width: 200,
+                child: FilledButton(
+                    child: Text('Add New Admin'),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/admin');
+                    }))
+          ],
+        ),
+      ),
+      content: Container(
+        width: double.infinity,
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  HomeButton(
+                    asset: 'assets/images/login-amico.png',
+                    title: 'Stationery',
+                    route: '/stationery',
+                  ),
+                  SizedBox(
+                    width: 100,
+                  ),
+                  HomeButton(
+                    asset: 'assets/images/login-amico.png',
+                    title: 'Laptop',
+                    route: '/laptop',
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 100,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  HomeButton(
+                    asset: 'assets/images/login-amico.png',
+                    title: 'Projectors',
+                    route: '/projector',
+                  ),
+                  SizedBox(
+                    width: 100,
+                  ),
+                  HomeButton(
+                    asset: 'assets/images/login-amico.png',
+                    title: 'Venues',
+                    route: '/venue',
+                  ),
+                ],
+              )
+            ]),
       ),
     );
   }

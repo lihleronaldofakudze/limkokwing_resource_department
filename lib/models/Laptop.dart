@@ -22,15 +22,15 @@ class LaptopFields {
 }
 
 class Laptop {
-  final int id;
+  final int? id;
   final String name;
   final String serialNumber;
   final String status;
   final String department;
-  final DateTime dateTime;
+  final String dateTime;
 
   Laptop(
-      {required this.id,
+      {this.id,
       required this.name,
       required this.serialNumber,
       required this.status,
@@ -43,7 +43,7 @@ class Laptop {
           String? serialNumber,
           String? status,
           String? department,
-          DateTime? dateTime}) =>
+          String? dateTime}) =>
       Laptop(
           id: id ?? this.id,
           name: name ?? this.name,
@@ -58,7 +58,7 @@ class Laptop {
       serialNumber: json[LaptopFields.serialNumber] as String,
       status: json[LaptopFields.status] as String,
       department: json[LaptopFields.department] as String,
-      dateTime: json[LaptopFields.dateTime] as DateTime);
+      dateTime: json[LaptopFields.dateTime] as String);
 
   Map<String, Object?> toJson() => {
         LaptopFields.id: id,
@@ -71,8 +71,8 @@ class Laptop {
 }
 
 class LaptopDataSource extends DataGridSource {
-  LaptopDataSource(List<Laptop> projectors) {
-    dataGridRows = projectors
+  LaptopDataSource(List<Laptop> laptops) {
+    dataGridRows = laptops
         .map((dataGridRow) => DataGridRow(cells: [
               DataGridCell<int>(columnName: 'id', value: dataGridRow.id),
               DataGridCell<String>(columnName: 'name', value: dataGridRow.name),
@@ -82,7 +82,7 @@ class LaptopDataSource extends DataGridSource {
                   columnName: 'status', value: dataGridRow.status),
               DataGridCell<String>(
                   columnName: 'department', value: dataGridRow.department),
-              DataGridCell<DateTime>(
+              DataGridCell<String>(
                   columnName: 'dateTime', value: dataGridRow.dateTime),
             ]))
         .toList();
@@ -97,9 +97,12 @@ class LaptopDataSource extends DataGridSource {
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
         cells: row.getCells().map<Widget>((dataGridCell) {
-      return Expanded(
-        child: Container(
-          child: Text(dataGridCell.value.toString()),
+      return Container(
+        alignment: Alignment.center,
+        child: Text(
+          dataGridCell.value.toString(),
+          textAlign: TextAlign.center,
+          style: TextStyle(fontFamily: 'Ubuntu'),
         ),
       );
     }).toList());

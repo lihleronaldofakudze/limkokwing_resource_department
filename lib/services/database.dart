@@ -5,6 +5,8 @@ import 'package:limkokwing_resource_department/models/Venue.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../models/Admin.dart';
+
 class ResourcesDatabase {
   //create an instance
   static final ResourcesDatabase instance = ResourcesDatabase._init();
@@ -72,6 +74,12 @@ class ResourcesDatabase {
         '${VenueFields.nameOfEvent} $intType,'
         '${VenueFields.status} $textType,'
         '${VenueFields.dateTime} $textType'
+        ')');
+
+    await db.execute('CREATE TABLE $tableAdmin ('
+        '${AdminFields.id} $idType,'
+        '${AdminFields.username} $textType,'
+        '${AdminFields.password} $textType'
         ')');
   }
 

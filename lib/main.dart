@@ -2,6 +2,11 @@ import 'dart:io';
 
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:limkokwing_resource_department/screens/admin_screen.dart';
+import 'package:limkokwing_resource_department/screens/laptop_screen.dart';
+import 'package:limkokwing_resource_department/screens/projector_screen.dart';
+import 'package:limkokwing_resource_department/screens/stationery_screen.dart';
+import 'package:limkokwing_resource_department/screens/venue_screen.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
@@ -9,6 +14,7 @@ import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isWindows || Platform.isLinux) {
     sqfliteFfiInit();
     databaseFactory = databaseFactoryFfi;
@@ -33,7 +39,12 @@ class MyApp extends StatelessWidget {
               centered: true,
             ),
         '/login': (context) => LoginScreen(),
-        '/home': (context) => HomeScreen()
+        '/home': (context) => HomeScreen(),
+        '/stationery': (context) => StationeryScreen(),
+        '/laptop': (context) => LaptopScreen(),
+        '/venue': (context) => VenueScreen(),
+        '/projector': (context) => ProjectorScreen(),
+        '/admin': (context) => AdminScreen(),
       },
       theme: ThemeData(),
     );

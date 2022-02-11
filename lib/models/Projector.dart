@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 final String tableProjector = 'projectors';
@@ -22,15 +23,15 @@ class ProjectorFields {
 }
 
 class Projector {
-  final int id;
+  final int? id;
   final String name;
   final String serialNumber;
   final String status;
   final String department;
-  final DateTime dateTime;
+  final String dateTime;
 
   Projector(
-      {required this.id,
+      {this.id,
       required this.name,
       required this.serialNumber,
       required this.status,
@@ -43,7 +44,7 @@ class Projector {
           String? serialNumber,
           String? status,
           String? department,
-          DateTime? dateTime}) =>
+          String? dateTime}) =>
       Projector(
           id: id ?? this.id,
           name: name ?? this.name,
@@ -58,7 +59,7 @@ class Projector {
       serialNumber: json[ProjectorFields.serialNumber] as String,
       status: json[ProjectorFields.status] as String,
       department: json[ProjectorFields.department] as String,
-      dateTime: json[ProjectorFields.dateTime] as DateTime);
+      dateTime: json[ProjectorFields.dateTime] as String);
 
   Map<String, Object?> toJson() => {
         ProjectorFields.id: id,
@@ -82,7 +83,7 @@ class ProjectorDataSource extends DataGridSource {
                   columnName: 'status', value: dataGridRow.status),
               DataGridCell<String>(
                   columnName: 'department', value: dataGridRow.department),
-              DataGridCell<DateTime>(
+              DataGridCell<String>(
                   columnName: 'dateTime', value: dataGridRow.dateTime),
             ]))
         .toList();
@@ -98,7 +99,12 @@ class ProjectorDataSource extends DataGridSource {
     return DataGridRowAdapter(
         cells: row.getCells().map<Widget>((dataGridCell) {
       return Container(
-        child: Text(dataGridCell.value.toString()),
+        alignment: Alignment.center,
+        child: Text(
+          dataGridCell.value.toString(),
+          textAlign: TextAlign.center,
+          style: TextStyle(fontFamily: 'Ubuntu'),
+        ),
       );
     }).toList());
   }

@@ -22,15 +22,15 @@ class VenueFields {
 }
 
 class Venue {
-  final int id;
+  final int? id;
   final String name;
   final String bookedBy;
   final String nameOfEvent;
   final String status;
-  final DateTime dateTime;
+  final String dateTime;
 
   Venue(
-      {required this.id,
+      {this.id,
       required this.name,
       required this.bookedBy,
       required this.nameOfEvent,
@@ -43,7 +43,7 @@ class Venue {
     String? bookedBy,
     String? nameOfEvent,
     String? status,
-    DateTime? dateTime,
+    String? dateTime,
   }) =>
       Venue(
           id: id ?? this.id,
@@ -53,15 +53,15 @@ class Venue {
           status: status ?? this.status,
           dateTime: dateTime ?? this.dateTime);
 
-  static Venue fromJson(Map<String, Object> json) => Venue(
+  static Venue fromJson(Map<String, dynamic> json) => Venue(
       id: json[VenueFields.id] as int,
       name: json[VenueFields.name] as String,
       bookedBy: json[VenueFields.bookedBy] as String,
       nameOfEvent: json[VenueFields.nameOfEvent] as String,
       status: json[VenueFields.status] as String,
-      dateTime: json[VenueFields.dateTime] as DateTime);
+      dateTime: json[VenueFields.dateTime] as String);
 
-  Map<String, Object?> toJson() => {
+  Map<String, dynamic> toJson() => {
         VenueFields.id: id,
         VenueFields.name: name,
         VenueFields.bookedBy: bookedBy,
@@ -72,8 +72,8 @@ class Venue {
 }
 
 class VenueDataSource extends DataGridSource {
-  VenueDataSource(List<Venue> projectors) {
-    dataGridRows = projectors
+  VenueDataSource(List<Venue> venues) {
+    dataGridRows = venues
         .map((dataGridRow) => DataGridRow(cells: [
               DataGridCell<int>(columnName: 'id', value: dataGridRow.id),
               DataGridCell<String>(columnName: 'name', value: dataGridRow.name),
@@ -83,7 +83,7 @@ class VenueDataSource extends DataGridSource {
                   columnName: 'nameOfEvent', value: dataGridRow.nameOfEvent),
               DataGridCell<String>(
                   columnName: 'status', value: dataGridRow.status),
-              DataGridCell<DateTime>(
+              DataGridCell<String>(
                   columnName: 'dateTime', value: dataGridRow.dateTime),
             ]))
         .toList();
@@ -98,9 +98,12 @@ class VenueDataSource extends DataGridSource {
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
         cells: row.getCells().map<Widget>((dataGridCell) {
-      return Expanded(
-        child: Container(
-          child: Text(dataGridCell.value.toString()),
+      return Container(
+        alignment: Alignment.center,
+        child: Text(
+          dataGridCell.value.toString(),
+          textAlign: TextAlign.center,
+          style: TextStyle(fontFamily: 'Ubuntu'),
         ),
       );
     }).toList());

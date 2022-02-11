@@ -2,14 +2,14 @@
 import 'package:limkokwing_resource_department/models/Projector.dart';
 import 'package:limkokwing_resource_department/services/database.dart';
 
-Future<Projector> addAnswers(Projector projector) async {
+Future<Projector> addProjector(Projector projector) async {
   final db = await ResourcesDatabase.instance.database;
   final id = await db.insert(tableProjector, projector.toJson());
   return projector.copy(id: id);
 }
 
 //read Expense
-Future<Projector> getAnswers(int id) async {
+Future<Projector> getProjector(int id) async {
   final db = await ResourcesDatabase.instance.database;
   final maps = await db.query(tableProjector,
       columns: ProjectorFields.values,
@@ -31,9 +31,15 @@ Future<List<Projector>> getProjectorList() async {
 }
 
 //update Question
-Future<int> updateBudget(Projector projector) async {
+Future<int> updateProjector(Projector projector) async {
   final db = await ResourcesDatabase.instance.database;
 
   return db.update(tableProjector, projector.toJson(),
       where: '${ProjectorFields.id} = ?', whereArgs: [projector.id]);
+}
+
+Future<int> deleteProjector(int id) async {
+  final db = await ResourcesDatabase.instance.database;
+  return await db.delete(tableProjector,
+      where: '${ProjectorFields.id} = ?', whereArgs: [id]);
 }

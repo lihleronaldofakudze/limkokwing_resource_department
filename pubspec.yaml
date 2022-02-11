@@ -17,11 +17,9 @@ dependencies:
   sqflite: ^2.0.2
   sqflite_common_ffi: ^2.1.0+2
   syncfusion_flutter_xlsio: ^19.4.48-beta
-  printing: ^5.7.2
-  syncfusion_flutter_pdf: ^19.4.48-beta
   animated_splash_screen: ^1.1.0
-  google_fonts: ^2.3.1
   syncfusion_flutter_datagrid: ^19.4.48+1
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
@@ -33,3 +31,15 @@ flutter:
 
   assets:
      - assets/images/
+
+  fonts:
+     - family: Ubuntu
+       fonts:
+         - asset: fonts/Ubuntu-Bold.ttf
+         - asset: fonts/Ubuntu-BoldItalic.ttf
+         - asset: fonts/Ubuntu-Italic.ttf
+         - asset: fonts/Ubuntu-Light.ttf
+         - asset: fonts/Ubuntu-LightItalic.ttf
+         - asset: fonts/Ubuntu-Medium.ttf
+         - asset: fonts/Ubuntu-MediumItalic.ttf
+         - asset: fonts/Ubuntu-Regular.ttf

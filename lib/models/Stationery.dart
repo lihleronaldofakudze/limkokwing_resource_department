@@ -14,14 +14,14 @@ class StationeryFields {
 }
 
 class Stationery {
-  final int id;
+  final int? id;
   final String name;
   final int quantity;
   final String employee;
-  final DateTime dateTime;
+  final String dateTime;
 
   Stationery(
-      {required this.id,
+      {this.id,
       required this.name,
       required this.quantity,
       required this.employee,
@@ -32,17 +32,32 @@ class Stationery {
           String? name,
           int? quantity,
           String? employee,
-          DateTime? dateTime}) =>
+          String? dateTime}) =>
       Stationery(
           id: id ?? this.id,
           name: name ?? this.name,
           quantity: quantity ?? this.quantity,
           employee: employee ?? this.employee,
           dateTime: dateTime ?? this.dateTime);
+
+  static Stationery fromJson(Map<String, dynamic> json) => Stationery(
+      id: json[StationeryFields.id] as int,
+      name: json[StationeryFields.name] as String,
+      quantity: json[StationeryFields.quantity] as int,
+      employee: json[StationeryFields.employee] as String,
+      dateTime: json[StationeryFields.dateTime] as String);
+
+  Map<String, dynamic> toJson() => {
+        StationeryFields.id: id,
+        StationeryFields.name: name,
+        StationeryFields.quantity: quantity,
+        StationeryFields.employee: employee,
+        StationeryFields.dateTime: dateTime,
+      };
 }
 
-class ProjectorDataSource extends DataGridSource {
-  ProjectorDataSource(List<Stationery> projectors) {
+class StationeryDataSource extends DataGridSource {
+  StationeryDataSource(List<Stationery> projectors) {
     dataGridRows = projectors
         .map((dataGridRow) => DataGridRow(cells: [
               DataGridCell<int>(columnName: 'id', value: dataGridRow.id),
@@ -51,7 +66,7 @@ class ProjectorDataSource extends DataGridSource {
                   columnName: 'quantity', value: dataGridRow.quantity),
               DataGridCell<String>(
                   columnName: 'employee', value: dataGridRow.employee),
-              DataGridCell<DateTime>(
+              DataGridCell<String>(
                   columnName: 'dateTime', value: dataGridRow.dateTime),
             ]))
         .toList();
@@ -66,9 +81,12 @@ class ProjectorDataSource extends DataGridSource {
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
         cells: row.getCells().map<Widget>((dataGridCell) {
-      return Expanded(
-        child: Container(
-          child: Text(dataGridCell.value.toString()),
+      return Container(
+        alignment: Alignment.center,
+        child: Text(
+          dataGridCell.value.toString(),
+          textAlign: TextAlign.center,
+          style: TextStyle(fontFamily: 'Ubuntu'),
         ),
       );
     }).toList());

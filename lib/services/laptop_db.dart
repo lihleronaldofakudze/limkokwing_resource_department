@@ -2,14 +2,14 @@
 import 'package:limkokwing_resource_department/models/Laptop.dart';
 import 'package:limkokwing_resource_department/services/database.dart';
 
-Future<Laptop> addAnswers(Laptop laptop) async {
+Future<Laptop> addLaptop(Laptop laptop) async {
   final db = await ResourcesDatabase.instance.database;
   final id = await db.insert(tableLaptop, laptop.toJson());
   return laptop.copy(id: id);
 }
 
 //read Expense
-Future<Laptop> getAnswers(int id) async {
+Future<Laptop> getLaptop(int id) async {
   final db = await ResourcesDatabase.instance.database;
   final maps = await db.query(tableLaptop,
       columns: LaptopFields.values,
@@ -24,16 +24,22 @@ Future<Laptop> getAnswers(int id) async {
 }
 
 //read All Expenses
-Future<List<Laptop>> getAnswersList() async {
+Future<List<Laptop>> getLaptopList() async {
   final db = await ResourcesDatabase.instance.database;
   final result = await db.query(tableLaptop);
   return result.map((json) => Laptop.fromJson(json)).toList();
 }
 
 //update Question
-Future<int> updateBudget(Laptop question) async {
+Future<int> updateLaptop(Laptop laptop) async {
   final db = await ResourcesDatabase.instance.database;
 
-  return db.update(tableLaptop, question.toJson(),
-      where: '${LaptopFields.id} = ?', whereArgs: [question.id]);
+  return db.update(tableLaptop, laptop.toJson(),
+      where: '${LaptopFields.id} = ?', whereArgs: [laptop.id]);
+}
+
+Future<int> deleteLaptop(int id) async {
+  final db = await ResourcesDatabase.instance.database;
+  return await db
+      .delete(tableLaptop, where: '${LaptopFields.id} = ?', whereArgs: [id]);
 }

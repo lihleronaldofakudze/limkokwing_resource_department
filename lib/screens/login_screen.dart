@@ -1,5 +1,4 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -16,7 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Text(
         'Limkokwing University \nResources Management System',
         textAlign: TextAlign.center,
-        style: GoogleFonts.ubuntu(fontSize: 24),
+        style: TextStyle(fontSize: 24),
       )),
       content: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -36,8 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Text(
                 'Access your account',
-                style: GoogleFonts.ubuntu(
-                    fontWeight: FontWeight.bold, fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               SizedBox(
                 height: 20,
@@ -65,12 +63,15 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 30,
               ),
-              Button(
-                child: Text('Login'),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/home');
-                },
-                // style: ButtonStyle(backgroundColor: Button),
+              SizedBox(
+                width: 240,
+                child: FilledButton(
+                  child: Text('Login'),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/home');
+                  },
+                  // style: ButtonStyle(backgroundColor: Button),
+                ),
               )
             ],
           )),
